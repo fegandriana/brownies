@@ -22,7 +22,8 @@ take' a (x:xs) = x : take' (a-1) (xs)
 
 drop' 0 a = a
 drop' a [] = []
--- still confused
+drop' l (x:xs) = (drop' (l-1) xs)
+
 -- pembatas
 
 fst' (a,b) = a
@@ -33,7 +34,8 @@ snd' (a,b) = b
 
 -- pembatas
 
-map' x = x
+map' f [] = []
+map' f (x:xs) = f x : (map' f xs)
 
 -- pembatas
 
@@ -44,11 +46,13 @@ filter' x = x
 delete' a [] = []
 delete' a (x:xs)
   | a == x = xs
-  | otherwise = x : delete' a xs
---- but I still confused
+  | otherwise = x : (delete' a xs)
 --pembatas
 
-deleteAll' x = x
+deleteAll' _ [] = []
+deleteAll' n (x:xs)
+    | n == x = deleteAll' n (xs)
+    | otherwise = [x] ++ (deleteAll' n xs)
 
 -- pembatas
 
@@ -60,7 +64,9 @@ foldl1' x = x
 
 -- pembatas
 
-zip' x = x
+zip' [] [] = []
+zip' (x:xs) (y:ys) = (x,y) :  zip' xs ys
+
 
 -- pembatas
 
@@ -83,7 +89,7 @@ scanl1' x = x
 elem' a [] = False
 elem' a (x:xs)
   | a == x = True
--- I havent finish yet, I still confused (again)
+  -- confused
 
 -- pembatas
 
@@ -91,7 +97,7 @@ notElem' x = x
 
 -- pembatas
 
-head' x = x
+head' (x:xs) = x
 
 -- pembatas
 
@@ -100,20 +106,24 @@ length' (x:xs) = 1 + (length' xs)
 
 -- pembatas
 
-reverse' x = x
+reverse' [] = []
+reverse' (x:xs) = (reverse' (xs)) ++ [x]
 
 -- pembatas
 
-last' [x] = x
+last' [a] = a
 last' (x:xs) = last' xs
 
 -- pembatas
 
+tail' [x] = []
 tail' (x:xs) = xs
 
 -- pembatas
 
-init' x = x
+init' [n] = []
+init' (x:xs) = [x] ++ (init' (xs))
+--
 
 -- pembatas
 
@@ -143,23 +153,30 @@ intercalate' x = x
 
 -- pembatas
 
-and' x = x
+and' [] = True
+and' (x:xs)
+  | x == False = False
+  | otherwise = True
 
 -- pembatas
 
-or' x = x
-
+or' [] = False
+or' (x:xs)
+  | x == True = True
+  | otherwise = False
 -- pembatas
 
 zip3' x = x
 
 -- pembatas
 
-sum' x = x
+sum' [a] = a
+sum' (x:xs) = x + sum' xs
 
 -- pembatas
 
-product' x = x
+product' [b] = b
+product' (x:xs) = x * product' xs
 
 -- pembatas
 
@@ -207,7 +224,8 @@ zipWith3' x = x
 
 -- pembatas
 
-nub' x = x
+nub' [x] = [x]
+
 
 -- pembatas
 
@@ -228,23 +246,24 @@ inits' x = x
 --pembatas
 
 tails' x = x
+--pembatas
+
+union' (x:xs) (y:ys) = (x,xs,y,ys)
+--
 
 --pembatas
 
-union' x = x
+intersect' (x:xs) (y:ys) = []
 
 --pembatas
 
-intersect' x = x
+group' [] = []
+--group' [x:xs] = [[x]]
 
 --pembatas
 
-group' x = x
-
---pembatas
-
-splitAt' x = x
-
+splitAt' a [] = ([],[])
+--splitAt' a [x:xs] = ([x:xs],[])
 --pembatas
 
 partition' x = x
