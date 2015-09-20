@@ -208,11 +208,17 @@ concatMap' x = x
 
 -- pembatas
 
-all' x = x
+all' _ [] = True
+all' a (x:xs)
+  | a x == False = False
+  | otherwise = all' a (xs)
 
 -- pembatas
 
-any' x = x
+any' _ [] = False
+any' a (x:xs)
+  | a x == True = True
+  | otherwise = any' a (x:xs)
 
 -- pembatas
 
