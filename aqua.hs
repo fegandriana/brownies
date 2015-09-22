@@ -208,17 +208,11 @@ concatMap' x = x
 
 -- pembatas
 
-all' _ [] = True
-all' a (x:xs)
-  | a x == False = False
-  | otherwise = all' a (xs)
+all' x = x
 
 -- pembatas
 
-any' _ [] = False
-any' a (x:xs)
-  | a x == True = True
-  | otherwise = any' a (x:xs)
+any' x = x
 
 -- pembatas
 
@@ -239,11 +233,13 @@ sort' x = x
 
 -- pembatas
 
-minimum' x = x
+minimum' [n] = n
+minimum' (x:xs) = min' (x) (minimum' xs)
 
 -- pembatas
 
-maximum' x = x
+maximum' [n] = n
+maximum' (x:xs) = max' (x) (maximum' xs)
 
 -- pembatas
 
@@ -276,8 +272,7 @@ partition' x = x
 
 --pembatas
 
-replicate' 0 x = []
-replicate' a x = x : replicate' (a-1) x
+replicate' x = x
 
 --pembatas
 -- First Assignment
